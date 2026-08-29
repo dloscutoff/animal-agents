@@ -1,9 +1,4 @@
 
-#container {
-    max-width: 1116; /* Three cards' width: (330 + (10 + 1 + 10) * 2) * 3 */
-    width: fit-content;
-}
-
 .hidden {
     display: none !important;
 }
@@ -14,7 +9,34 @@
 }
 
 .row > * {
-    margin: 10px;
+    margin: .7rem 1%;
+}
+
+/* Narrow screens: 1 column, large font */
+@media (min-width: 0px) {
+    html {
+        font-size: large;
+    }
+    .box {
+        width: 98%;
+    }
+}
+
+/* Medium screens: 2 column, medium font */
+@media (min-width: 700px) {
+    html {
+        font-size: medium;
+    }
+    .box {
+        width: 48%;
+    }
+}
+
+/* Wide screens: 3 column */
+@media (min-width: 1050px) {
+    .box {
+        width: 31.333%;
+    }
 }
 
 #title, #agent-title, .trait-set-name {
@@ -39,7 +61,7 @@
 }
 
 #title {
-    margin-top: 20px;
+    margin-top: 1.5rem;
     font-size: 3rem;
     justify-content: center;
 }
@@ -50,11 +72,12 @@
 }
 
 #agent-title {
-    margin-top: 10px;
+    margin-top: .7rem;
+    margin-bottom: .2rem;
 }
 
 #agent-title > span {
-    padding: 0px 5px 0px 0px;
+    padding-right: .3rem;
     font-size: 1.8rem;
 }
 
@@ -76,7 +99,7 @@
 }
 
 .plot-point > input[type=image] {
-    margin: 0px 5px;
+    margin: 0 .5rem;
     max-width: 1.6rem;
     max-height: 1.6rem;
     width: auto;
@@ -98,7 +121,7 @@ input[type=image][disabled] {
 }
 
 #btn-new-pp {
-    margin-right: 5px;
+    margin-right: .5rem;
 }
 
 #customize-button {
@@ -108,48 +131,29 @@ input[type=image][disabled] {
     justify-content: end;
 }
 
-/*.column, .column-half {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 10px;
-}
-
-@media (min-width: 650px) {
-    .column-half {
-        flex: 0 0 50%;
-        max-width: calc(50% - 20px);
-    }
-}
-
-.column {
-    width: calc(100% - 20px);
-}*/
-
 .box {
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
     border: 1px solid;
-    width: 330px;
-    /*width: 100%;
-    height: fit-content;*/
-    padding: 10px 10px 20px;
+    padding: 1rem 1%;
 }
 
-.prime-set > .box {
+.box.prime-set {
     border-color: black;
 }
 
-.plus-set > .box {
+.box.plus-set {
     border-color: lightgray;
 }
 
 .trait-set-name {
-    margin: 0px;
+    margin: 0;
     font-size: 1.7rem;
 }
 
 .trait-set-description {
-    margin: 0px;
+    margin: 0;
     text-align: center;
     font-size: 1.1rem;
 }
@@ -162,13 +166,13 @@ input[type=image][disabled] {
 .trait {
     display: flex;
     flex: 100%;
-    margin: 20px 25px 0px;
+    margin: 1.5rem 8% 0rem;
     align-items: center;
 }
 
 .trait-delete {
-    margin-left: -24px;
-    margin-right: 8px;
+    margin-left: -1.5rem;
+    margin-right: .5rem;
 }
 
 .trait-name {
@@ -177,14 +181,13 @@ input[type=image][disabled] {
 }
 
 .trait-name h3 {
-    margin: 0px 10px 0px 0px;
+    margin: 0 .7rem 0 0;
     flex: 1;
     font-size: 1.3rem;
 }
 
 .trait-die {
     display: flex;
-    /* flex: 0; */
 }
 
 .customize-mode .trait-set-traits.swappable .trait-die {
@@ -213,18 +216,18 @@ input[type=image][disabled] {
 .trait-die-arrows {
     display: flex;
     flex-flow: column;
-    margin-left: 6px;
-    margin-right: -22px;
+    margin-left: .3rem;
+    margin-right: -1.5rem;
 }
 
 .trait-die-arrows > input[type=image] {
-    margin: 1px 0px;
+    margin: .1rem 0;
     cursor: pointer;
 }
 
 .trait-description {
     flex: 100%;
-    margin: 0px 20px 5px;
+    margin: 0 5% .3rem;
     width: 100%;
     font-size: 1rem;
 }
@@ -232,28 +235,28 @@ input[type=image][disabled] {
 .trait-addition {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 1.5rem;
 }
 
 .sfx-name {
-    margin: 2rem auto 0.5rem;
+    margin: 2rem auto .5rem;
     text-align: center;
     font-size: 1rem;
 }
 
 .sfx-description {
-    max-width: 280px;
-    margin: 0rem auto 0.5rem;
+    max-width: 90%;
+    margin: 0 auto .5rem;
     text-align: center;
     font-size: 1rem;
 }
 
 .sfx-description img {
-    max-height: 1rem;
+    max-height: 1em;
     width: auto;
     height: auto;
     position: relative;
-    top: 0.2rem;
+    top: .2em;
 }
 
 .sfx-cost-header {
