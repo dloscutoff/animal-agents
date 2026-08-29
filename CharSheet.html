@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animal Agents character sheet</title>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/CharSheet.css"></link>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght,CRSV@100..900,0&display=swap">
+    <!-- JavaScript -->
+    <script type="text/javascript" src="js/CharSheet.js"></script>
+</head>
+<body>
+    <div id="container">
+        <div id="title">
+            <span>Animal Agents!</span>
+        </div>
+        <div id="agent-title">
+            <span id="agent-name" class="customizable" spellcheck="false" onblur="addPlaceholder(this)">?</span>
+            <span>the</span>
+            <span id="agent-species" class="customizable" spellcheck="false" onblur="addPlaceholder(this)">?</span>
+        </div>
+        <div id="top-buttons" class="row">
+            <div id="plot-point-section">
+                <div id="plot-point-button">
+                    <input type="image" id="btn-new-pp" src="img/add.svg" onclick="addPlotPoint()" />
+                </div>
+                <div id="plot-points">
+                </div>
+            </div>
+            <div id="customize-button">
+                <button id="btn-customize" onclick="toggleCustomizeMode()">Customize Character</button>
+            </div>
+        </div>
+        <div id="prime-trait-sets" class="row prime-set">
+            <div id="distinction-box" class="box">
+                <h2 class="trait-set-name">Distinctions</h2>
+                <p class="trait-set-description">What makes your character unique</p>
+                <div id="distinction-traits" class="trait-set-traits">
+                    <div class="trait">
+                        <div class="trait-name">
+                            <h3 class="customizable" spellcheck="false"></h3>
+                        </div>
+                        <div class="trait-die">
+                            <img src="img/d8.svg"></img>
+                        </div>
+                    </div>
+                    <!--p class="trait-description">Who are you?</p-->
+                    <div class="trait">
+                        <div class="trait-name">
+                            <h3 class="customizable" spellcheck="false"></h3>
+                        </div>
+                        <div class="trait-die">
+                            <img src="img/d8.svg"></img>
+                        </div>
+                    </div>
+                    <!--p class="trait-description">What do you do best?</p-->
+                    <div class="trait">
+                        <div class="trait-name">
+                            <h3 class="customizable" spellcheck="false"></h3>
+                        </div>
+                        <div class="trait-die">
+                            <img src="img/d8.svg"></img>
+                        </div>
+                    </div>
+                    <!--p class="trait-description">What's your quirk or catchphrase?</p-->
+                </div>
+                <div id="distinction-sfx">
+                    <h3 class="sfx-name">SFX: Hinder</h3>
+                    <p class="sfx-description">
+                        When one of your distinctions makes life harder for you, roll
+                        <img src="img/d4.svg"></img>
+                        instead of
+                        <img src="img/d8.svg"></img>
+                        and gain a
+                        <img src="img/PP.svg"></img>.
+                    </p>
+                </div>
+            </div>
+            <div id="role-box" class="box">
+                <h2 class="trait-set-name">Roles</h2>
+                <p class="trait-set-description">What skills you bring to the team</p>
+                <div id="role-traits" class="trait-set-traits swappable">
+                    <div class="trait">
+                        <div class="trait-name">
+                            <h3>The Brain</h3>
+                        </div>
+                        <div id="brain-die" class="trait-die">
+                            <input id="role-d4" type="image" src="img/d4.svg" disabled />
+                        </div>
+                    </div>
+                    <p class="trait-description">Planning, outwitting, using tech</p>
+                    <div class="trait">
+                        <div class="trait-name">
+                            <h3>The Eyes &amp; Ears</h3>
+                        </div>
+                        <div id="eyes-ears-die" class="trait-die">
+                            <input id="role-d6" type="image" src="img/d6.svg" disabled />
+                        </div>
+                    </div>
+                    <p class="trait-description">Eavesdropping, noticing, aiming</p>
+                    <div class="trait">
+                        <div class="trait-name">
+                            <h3>The Legs</h3>
+                        </div>
+                        <div id="legs-die" class="trait-die">
+                            <input id="role-d8" type="image" src="img/d8.svg" disabled />
+                        </div>
+                    </div>
+                    <p class="trait-description">Running, sneaking, leaping</p>
+                    <div class="trait">
+                        <div class="trait-name">
+                            <h3>The Muscle</h3>
+                        </div>
+                        <div id="muscle-die" class="trait-die">
+                            <input id="role-d10" type="image" src="img/d10.svg" disabled />
+                        </div>
+                    </div>
+                    <p class="trait-description">Brute force, intimidation, kicks &amp; punches</p>
+                </div>
+            </div>
+            <div id="approach-box" class="box">
+                <h2 class="trait-set-name">Approaches</h2>
+                <p class="trait-set-description">How you prefer to solve problems</p>
+                <div id="approach-traits" class="trait-set-traits swappable">
+                    <div class="trait">
+                        <div class="trait-name">
+                            <h3>Careful</h3>
+                        </div>
+                        <div id="careful-die" class="trait-die">
+                            <input id="approach-d4" type="image" src="img/d4.svg" disabled />
+                        </div>
+                    </div>
+                    <p class="trait-description">Acting precisely under pressure</p>
+                    <div class="trait">
+                        <div class="trait-name">
+                            <h3>Crazy</h3>
+                        </div>
+                        <div id="crazy-die" class="trait-die">
+                            <input id="approach-d6" type="image" src="img/d6.svg" disabled />
+                        </div>
+                    </div>
+                    <p class="trait-description">Sowing utter chaos</p>
+                    <div class="trait">
+                        <div class="trait-name">
+                            <h3>Speedy</h3>
+                        </div>
+                        <div id="speedy-die" class="trait-die">
+                            <input id="approach-d8" type="image" src="img/d8.svg" disabled />
+                        </div>
+                    </div>
+                    <p class="trait-description">Moving so fast they can't react</p>
+                    <div class="trait">
+                        <div class="trait-name">
+                            <h3>Sly</h3>
+                        </div>
+                        <div id="sly-die" class="trait-die">
+                            <input id="approach-d10" type="image" src="img/d10.svg" disabled />
+                        </div>
+                    </div>
+                    <p class="trait-description">Using tricks and distractions</p>
+                </div>
+            </div>
+        </div>
+        <div id="plus-trait-sets" class="row plus-set">
+            <div id="gadget-box" class="box">
+                <h2 class="trait-set-name">Gadget</h2>
+                <p class="trait-set-description">A fancy tool from the Agency</p>
+                <div id="gadget-traits" class="trait-set-traits hidden">
+                    <div class="trait">
+                        <div class="trait-name">
+                            <h3 id="gadget-name"></h3>
+                        </div>
+                        <div class="trait-die">
+                            <img src="img/d8.svg"></img>
+                        </div>
+                    </div>
+                    <p id="gadget-description" class="trait-description"></p>
+                </div>
+                <div id="gadget-sfx" class="hidden">
+                    <h3 id="gadget-sfx-name" class="sfx-name"></h3>
+                    <p id="gadget-sfx-description" class="sfx-description"></p>
+                    <p class="sfx-description">
+                        <span class="sfx-cost-header">But if you do:</span>
+                        <span id="gadget-sfx-cost"></span>
+                    </p>
+                </div>
+                <div class="trait-addition">
+                    <button id="btn-choose-gadget" onclick="showGadgetDropdown()">Choose Gadget</button>
+                    <select id="gadget-select" name="gadgets" class="hidden">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+            <div id="asset-box" class="box">
+                <h2 class="trait-set-name">Assets</h2>
+                <p class="trait-set-description">Temporary advantages</p>
+                <div id="asset-traits" class="trait-set-traits">
+                    <!--div class="trait">
+                        <div class="trait-delete">
+                            <img src="img/delete.svg"></img>
+                        </div>
+                        <div class="trait-name">
+                            <h3 contenteditable="true" spellcheck="false">Test</h3>
+                        </div>
+                        <div class="trait-die">
+                            <img src="img/d6.svg"></img>
+                        </div>
+                        <div class="trait-die-arrows">
+                            <img src="img/up_arrow.svg"></img>
+                            <img src="img/down_arrow.svg"></img>
+                        </div>
+                    </div-->
+                </div>
+                <div class="trait-addition">
+                    <button id="btn-new-asset" onclick="addTrait('asset')">New Asset</button>
+                </div>
+            </div>
+            <div id="complication-box" class="box">
+                <h2 class="trait-set-name">Complications</h2>
+                <p class="trait-set-description">Temporary setbacks</p>
+                <div id="complication-traits" class="trait-set-traits">
+                </div>
+                <div class="trait-addition">
+                    <button id="btn-new-complication" onclick="addTrait('complication')">New Complication</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

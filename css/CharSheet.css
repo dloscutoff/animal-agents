@@ -1,0 +1,261 @@
+
+#container {
+    max-width: 1116; /* Three cards' width: (330 + (10 + 1 + 10) * 2) * 3 */
+    width: fit-content;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.row > * {
+    margin: 10px;
+}
+
+#title, #agent-title, .trait-set-name {
+    text-align: center;
+    font-family: "Geologica", "Arial Black", sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    font-variant: small-caps;
+}
+
+.trait-name h3, .sfx-name, button, select {
+    font-family: "Bahnschrift", "Arial", sans-serif;
+    font-weight: normal;
+}
+
+.trait-set-description, .trait-description, .sfx-description {
+    font-family: "Arial Narrow", sans-serif;
+}
+
+.trait-set-description, .trait-description {
+    font-style: italic;
+}
+
+#title {
+    margin-top: 20px;
+    font-size: 3rem;
+    justify-content: center;
+}
+
+[contenteditable=true]:not(:focus) {
+    border-bottom: 1px dotted;
+    margin-bottom: -1px;
+}
+
+#agent-title {
+    margin-top: 10px;
+}
+
+#agent-title > span {
+    padding: 0px 5px 0px 0px;
+    font-size: 1.8rem;
+}
+
+#agent-title > span.customizable {
+    font-size: 2rem;
+}
+
+#plot-point-section {
+    display: flex;
+    align-items: center;
+}
+
+#plot-point-section > * {
+    display: inline-flex;
+}
+
+.plot-point {
+    display: flex;
+}
+
+.plot-point > input[type=image] {
+    margin: 0px 5px;
+    max-width: 1.6rem;
+    max-height: 1.6rem;
+    width: auto;
+    height: auto;
+}
+
+button, select {
+    font-size: 1rem;
+    min-width: 1.5rem;
+    max-height: 1.8rem;
+}
+
+button {
+    cursor: pointer;
+}
+
+input[type=image][disabled] {
+    cursor: default;
+}
+
+#btn-new-pp {
+    margin-right: 5px;
+}
+
+#customize-button {
+    display: flex;
+    flex: auto;
+    align-items: center;
+    justify-content: end;
+}
+
+/*.column, .column-half {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px;
+}
+
+@media (min-width: 650px) {
+    .column-half {
+        flex: 0 0 50%;
+        max-width: calc(50% - 20px);
+    }
+}
+
+.column {
+    width: calc(100% - 20px);
+}*/
+
+.box {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid;
+    width: 330px;
+    /*width: 100%;
+    height: fit-content;*/
+    padding: 10px 10px 20px;
+}
+
+.prime-set > .box {
+    border-color: black;
+}
+
+.plus-set > .box {
+    border-color: lightgray;
+}
+
+.trait-set-name {
+    margin: 0px;
+    font-size: 1.7rem;
+}
+
+.trait-set-description {
+    margin: 0px;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.trait-set-traits {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.trait {
+    display: flex;
+    flex: 100%;
+    margin: 20px 25px 0px;
+    align-items: center;
+}
+
+.trait-delete {
+    margin-left: -24px;
+    margin-right: 8px;
+}
+
+.trait-name {
+    display: flex;
+    flex: 1;
+}
+
+.trait-name h3 {
+    margin: 0px 10px 0px 0px;
+    flex: 1;
+    font-size: 1.3rem;
+}
+
+.trait-die {
+    display: flex;
+    /* flex: 0; */
+}
+
+.customize-mode .trait-set-traits.swappable .trait-die {
+    border: 1px dotted;
+    margin: -1px;
+}
+
+.customize-mode .trait-die.selected {
+    opacity: 70%;
+    border: 2px solid;
+    margin: -2px;
+}
+
+.customize-mode .trait-set-traits.swapping .trait-die:not(.selected) {
+    border: 1px dashed;
+    margin: -1px;
+}
+
+.trait-die > img, .trait-die > input[type=image] {
+    max-width: 1.8rem;
+    max-height: 1.8rem;
+    width: auto;
+    height: auto;
+}
+
+.trait-die-arrows {
+    display: flex;
+    flex-flow: column;
+    margin-left: 6px;
+    margin-right: -22px;
+}
+
+.trait-die-arrows > input[type=image] {
+    margin: 1px 0px;
+    cursor: pointer;
+}
+
+.trait-description {
+    flex: 100%;
+    margin: 0px 20px 5px;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.trait-addition {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.sfx-name {
+    margin: 2rem auto 0.5rem;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.sfx-description {
+    max-width: 280px;
+    margin: 0rem auto 0.5rem;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.sfx-description img {
+    max-height: 1rem;
+    width: auto;
+    height: auto;
+    position: relative;
+    top: 0.2rem;
+}
+
+.sfx-cost-header {
+    font-style: italic;
+}
