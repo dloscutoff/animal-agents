@@ -407,6 +407,13 @@ const GADGETS = [
         sfx_cost: "Shut down Comically Big Hammer afterwards. Activate an opportunity to restore it.",
     },
     {
+        name: "Disguise Kit",
+        description: "Everything you need to look like someone else",
+        sfx_name: "Badge and Uniform",
+        sfx_description: "When you use the Disguise Kit to impersonate an authority figure, you may choose to step up Sly for that roll.",
+        sfx_cost: "Take or step up a Can't Blow My Cover d8 complication afterwards.",
+    },
+    {
         name: "Grappling Hook",
         description: "A multi-pronged hook on the end of a long rope",
         sfx_name: "Precision Throw",
