@@ -61,9 +61,9 @@
 }
 
 #title {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 0;
     font-size: 3rem;
-    justify-content: center;
 }
 
 [contenteditable=true]:not(:focus) {
