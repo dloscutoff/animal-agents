@@ -20,13 +20,28 @@ onload = function() {
         }
         this.value = "";
     }
-    loadCharacter();
-    addPlotPoint();
     removeGadget();
+    loadFromHash();
+    addPlotPoint();
+}
+
+function loadFromHash() {
+    const hash = location.hash.slice(1);
+    const character = decodeCharacter(hash);
+    // Load the specified character, or a random one if none was specified
+    loadCharacter(character);
+}
+
+function generateHash() {
+    return "#" + encodeCharacter(getCurrentCharacter());
+}
+
+function updatePermalink() {
+    location.assign(location.origin + location.pathname + generateHash());
 }
 
 function loadCharacter(character) {
-    if (character === undefined) {
+    if (!character) {
         // If no character was passed in, pick one at random
         character = pickRandom(CHARACTERS);
     }
@@ -47,6 +62,32 @@ function loadCharacter(character) {
     }
 }
 
+function getCurrentCharacter() {
+    function innerTextSingleLine(control) {
+        return control.innerText.replaceAll("\n", "");
+    }
+    const distinctionControls = document.querySelectorAll("#distinction-traits .customizable").values();
+    let roleDice = {};
+    for (const traitDieDiv of document.querySelectorAll("#role-traits .trait-die")) {
+        let roleName = traitDieDiv.id.replace("-die", "");
+        let dieRating = traitDieDiv.firstElementChild.id.replace("role-", "");
+        roleDice[roleName] = dieRating;
+    }
+    let approachDice = {};
+    for (const traitDieDiv of document.querySelectorAll("#approach-traits .trait-die")) {
+        let approachName = traitDieDiv.id.replace("-die", "");
+        let dieRating = traitDieDiv.firstElementChild.id.replace("approach-", "");
+        approachDice[approachName] = dieRating;
+    }
+    return {
+        name: innerTextSingleLine(document.getElementById("agent-name")),
+        species: innerTextSingleLine(document.getElementById("agent-species")),
+        distinctions: [...distinctionControls.map(innerTextSingleLine)],
+        roles: roleDice,
+        approaches: approachDice,
+    };
+}
+
 function toggleCustomizeMode() {
     const container = document.getElementById("container");
     if (container.classList.contains("customize-mode")) {
@@ -64,6 +105,8 @@ function toggleCustomizeMode() {
                 traitDie.disabled = true;
             }
         }
+        // Update permalink to reflect customizations
+        updatePermalink();
     } else {
         // Currently not in customize mode; turn it on
         container.classList.add("customize-mode");
@@ -233,7 +276,7 @@ function removeGadget() {
 function loadGadget(gadget) {
     document.getElementById("gadget-traits").classList.remove("hidden");
     document.getElementById("gadget-sfx").classList.remove("hidden");
-    if (gadget === undefined) {
+    if (!gadget) {
         // If no gadget was passed in, pick one at random
         gadget = pickRandom(GADGETS);
     }
@@ -247,6 +290,103 @@ function loadGadget(gadget) {
 function pickRandom(array) {
     return array[Math.floor(Math.random() * array.length)];
 }
+
+function encodeCharacter(character) {
+    // Put the character's info into a single string
+    const characterData = `${character.name}
+${character.species}
+${character.distinctions.join("\n")}`;
+    // Base64-encode the string and remove trailing = signs
+    const base64 = btoa(characterData).replaceAll("=", "");
+    // Encode the die ratings and prepend them
+    return `${encodeDieRatings(character.roles)}${encodeDieRatings(character.approaches)}${base64}`;
+}
+
+function encodeDieRatings(traitSet) {
+    // Since the four die ratings are always distinct, encode them
+    // using a variant factorial number system
+    // There are only 24 permutations, so this can fit into one letter
+    let remainingDice = ["d4", "d6", "d8", "d10"];
+    let placeValue = 1;
+    let total = 0;
+    for (const [trait, dieRating] of Object.entries(traitSet)) {
+        // Get the index of the current die in the remaining dice list
+        const index = remainingDice.indexOf(dieRating);
+        total += index * placeValue;
+        placeValue *= remainingDice.length;
+        remainingDice.splice(index, 1);
+    }
+    return ALPHABET[total];
+}
+
+function decodeCharacter(code) {
+    // Check if code matches the name or species of a premade character;
+    // if so, return that character
+    for (const character of CHARACTERS) {
+        if (code.toLowerCase() === character.name.toLowerCase()
+                || code.toLowerCase() === character.species.toLowerCase()) {
+            return character;
+        }
+    }
+    // Otherwise, extract die ratings from the first two characters
+    // and base64-decode the rest as character data
+    const roleRatings = decodeDieRatings(code[0]);
+    const approachRatings = decodeDieRatings(code[1]);
+    let characterData = undefined;
+    try {
+        characterData = atob(code.slice(2)).split("\n");
+    } catch (error) {
+        console.log("Error while decoding " + code);
+        console.log(error);
+        return null;
+    }
+    if (characterData.length != 5) {
+        console.log("Error: character data should have 5 parts");
+        console.log(characterData);
+        return null;
+    }
+    // Return character object
+    return {
+        name: characterData[0],
+        species: characterData[1],
+        distinctions: characterData.slice(2, 5),
+        roles: {
+            "brain": roleRatings[0],
+            "eyes-ears": roleRatings[1],
+            "legs": roleRatings[2],
+            "muscle": roleRatings[3],
+        },
+        approaches: {
+            "careful": approachRatings[0],
+            "crazy": approachRatings[1],
+            "speedy": approachRatings[2],
+            "sly": approachRatings[3],
+        },
+    };
+}
+
+function decodeDieRatings(letter) {
+    // Decode the permutation of dice from a single letter that
+    // represents a number in a variant factorial number system
+    let total = ALPHABET.indexOf(letter);
+    let remainingDice = ["d4", "d6", "d8", "d10"];
+    let dieRatings = [];
+    if (total > 23 || total === -1) {
+        console.log("Character for decoding die ratings should be A-X, not:");
+        console.log(letter);
+        return null;
+    }
+    for (let i = 4; i > 0; i--) {
+        let index = total % i;
+        dieRatings.push(remainingDice[index]);
+        total = (total - index) / i;
+        remainingDice.splice(index, 1);
+    }
+    return dieRatings;
+}
+
+
+const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 const CHARACTERS = [
     {
