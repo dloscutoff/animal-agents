@@ -27,9 +27,14 @@ onload = function() {
 
 function loadFromHash() {
     const hash = location.hash.slice(1);
-    const character = decodeCharacter(hash);
-    // Load the specified character, or a random one if none was specified
-    loadCharacter(character);
+    if (hash === "") {
+        // Load a random character if none was specified
+        loadCharacter();
+    } else {
+        const character = decodeCharacter(hash);
+        // Load the specified character, or a random one if the decoding fails
+        loadCharacter(character);
+    }
 }
 
 function generateHash() {
