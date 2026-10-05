@@ -40,6 +40,16 @@ function updatePermalink() {
     location.assign(location.origin + location.pathname + generateHash());
 }
 
+function updateTitle() {
+    const name = document.getElementById("agent-name").innerText;
+    const species = document.getElementById("agent-species").innerText;
+    if (name !== "" && name !== "?" && species !== "" && species !== "?") {
+        document.title = `${name} the ${species} - Animal Agents character sheet`;
+    } else {
+        document.title = "Animal Agents character sheet";
+    }
+}
+
 function loadCharacter(character) {
     if (!character) {
         // If no character was passed in, pick one at random
@@ -47,6 +57,7 @@ function loadCharacter(character) {
     }
     document.getElementById("agent-name").innerText = character.name;
     document.getElementById("agent-species").innerText = character.species;
+    updateTitle();
     let i = 0;
     for (const distinction of document.querySelectorAll("#distinction-traits .customizable")) {
         distinction.innerText = character.distinctions[i];
@@ -136,11 +147,13 @@ function keyDownInEditableField(e) {
     }
 }
 
-function addPlaceholder(control) {
-    // If an editable control is empty, replace it with placeholder text
+function changeNameOrSpecies(control) {
+    // If the name or species is empty, replace it with placeholder text
     if (control.innerText === "") {
         control.innerText = "?";
     }
+    // Update the page title
+    updateTitle();
 }
 
 function clickTraitDie() {
