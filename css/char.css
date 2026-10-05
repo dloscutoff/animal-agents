@@ -39,7 +39,7 @@
     }
 }
 
-#title, #agent-title, .trait-set-name {
+#title, #loading, #agent-title, .trait-set-name {
     text-align: center;
     font-family: "Geologica", "Arial Black", sans-serif;
     font-weight: 900;
@@ -64,6 +64,11 @@
     margin-top: 1rem;
     margin-bottom: 0;
     font-size: 3rem;
+}
+
+#loading {
+    margin-top: .7rem;
+    font-size: 1.5rem;
 }
 
 [contenteditable=true]:not(:focus) {

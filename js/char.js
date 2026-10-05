@@ -23,6 +23,8 @@ onload = function() {
     removeGadget();
     loadFromHash();
     addPlotPoint();
+    document.getElementById("loading").classList.add("hidden");
+    document.getElementById("container").classList.remove("hidden");
 }
 
 function loadFromHash() {
